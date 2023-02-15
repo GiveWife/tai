@@ -23,44 +23,42 @@ public class CaesarMultiplicative extends Cipher {
     @Override
     public int[] decrypt(int[] numericEncryption) {
 
-        // Zoeken een key zodat
-        // shift * decryptesleutel mod length = 1
+        // Time our operation, since it is relatively costly
         OperationTime time = new OperationTime();
-        OperationTime[] perIteration = new OperationTime[shift*shift*shift];
-        double secondCount = 0;
-        int amountCounted = 0;
 
+        // Helper variables
         int length = Cipher.alphabet.length;
         int decryptKey = shift;
 
+        // Start timing
         time.start();
+
+        // Find the decryption key with modulo. We search until shift cubed.
         for(int i = 1; i < shift*shift*shift; i++) {
 
-            perIteration[i] = new OperationTime();
-            perIteration[i].start();
             int check = (shift*i) % length;
             if(check == 1) {
                 System.out.println("DecryptKey: " + decryptKey);
                 decryptKey = i;
                 continue;
             }
-            perIteration[i].stop();
-
-            //Timer
-            secondCount += perIteration[i].getNano();
-            amountCounted++;
 
         }
+
+        // Stop timing
         time.stop();
 
+        // Replace the given array with new numeric values that will provide the original message
         for(int i = 0; i < numericEncryption.length; i++) {
 
             numericEncryption[i] = (numericEncryption[i] * decryptKey) % length;
 
         }
 
-        System.out.println("The operation took " + time.getSeconds() + " seconds. Per iteration it took about " + secondCount/amountCounted + " nanoseconds");
+        // Log our time
+        System.out.println("The operation took " + time.getSeconds());
 
+        // Return the decrypted numeric array
         return numericEncryption;
 
     }

@@ -3,6 +3,7 @@ package h1;
 public class CaesarAdditive extends Cipher {
 
     private final int shift;
+
     public CaesarAdditive(String message, int a) {
         super(message);
         this.shift = a;
