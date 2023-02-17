@@ -3,7 +3,7 @@ package h1;
 public abstract class Cipher {
 
     private final String toEncrypt;
-    public static final char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ".toCharArray();
+    private final Translation translation = new Translation();
 
     public Cipher(String message) {
         // Checks if the message contains valid characters
@@ -20,27 +20,15 @@ public abstract class Cipher {
      * Transfers the string to a integer array.
      */
     public int[] getNumeric() {
-        int[] numeric = new int[getMessage().length()];
-        char[] charMessage = toEncrypt.toCharArray();
-        for(int i = 0; i < charMessage.length; i++) {
-            numeric[i] = getIndexForChar(charMessage[i]);
-        }
-        return numeric;
+        return translation.getNumeric(toEncrypt);
     }
 
     public int getIndexForChar(char s) {
-        for(int i = 0; i < alphabet.length; i++) {
-            if(s == alphabet[i]) return i;
-        }
-        return -1;
+        return translation.getIndexForChar(s);
     }
 
     public char getCharForIndex(int s) {
-        if(s < alphabet.length) return alphabet[s];
-        else {
-            System.out.println("False index for alphabet array: " + s);
-            return 1;
-        }
+        return translation.getCharForIndex(s);
     }
 
     public String getMessage() {

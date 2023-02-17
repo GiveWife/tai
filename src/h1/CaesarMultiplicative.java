@@ -13,7 +13,7 @@ public class CaesarMultiplicative extends Cipher {
     public int[] encrypt(int[] numericTranslation) {
 
         for(int i = 0; i < numericTranslation.length; i++) {
-            numericTranslation[i] = (numericTranslation[i] * shift) % Cipher.alphabet.length;
+            numericTranslation[i] = (numericTranslation[i] * shift) % Translation.alphabet.length;
         }
 
         return numericTranslation;
@@ -27,7 +27,7 @@ public class CaesarMultiplicative extends Cipher {
         OperationTime time = new OperationTime();
 
         // Helper variables
-        int length = Cipher.alphabet.length;
+        int length = Translation.alphabet.length;
         int decryptKey = shift;
 
         // Start timing
