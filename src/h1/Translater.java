@@ -1,8 +1,10 @@
 package h1;
 
-public class Translation {
+import util.Printer;
 
-    public Translation() {
+public class Translater extends Printer {
+
+    public Translater() {
 
     }
 
@@ -41,13 +43,24 @@ public class Translation {
         }
     }
 
-    public String toString(int[] arr) {
+    /**
+     * Construct the encrypted message using the changed numeric values of the string
+     */
+    public String construct(int[] encryptedNumeric) {
+        char[] encrypted = new char[encryptedNumeric.length];
+        for(int i = 0; i < encryptedNumeric.length; i++) {
+            encrypted[i] = getCharForIndex(encryptedNumeric[i]);
+        }
+        return charToString(encrypted);
+    }
+
+    public String charToString(char[] arr) {
         String s = "";
         for(int i = 0; i < arr.length; i++) {
-            s += Integer.toString(arr[i]);
-            if(i != arr.length-1) s += ", ";
+            s += arr[i];
         }
         return s;
     }
+
 
 }

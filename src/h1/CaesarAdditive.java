@@ -6,6 +6,7 @@ public class CaesarAdditive extends Cipher {
 
     public CaesarAdditive(String message, int a) {
         super(message);
+        System.out.println("Shift: " + a);
         this.shift = a;
     }
 
@@ -13,7 +14,10 @@ public class CaesarAdditive extends Cipher {
     public int[] encrypt(int[] numericTranslation) {
 
         for(int i = 0; i < numericTranslation.length; i++) {
-            numericTranslation[i] = (numericTranslation[i] + shift) % Translation.alphabet.length;
+            print("shift: " + shift);
+            print("Before: " + (numericTranslation[i] + shift) + ", " + (numericTranslation[i]+shift % translater.alphabet.length));
+            numericTranslation[i] = (numericTranslation[i] + shift) % translater.alphabet.length;
+            print("After: " + numericTranslation[i]);
         }
 
         return numericTranslation;
@@ -24,8 +28,8 @@ public class CaesarAdditive extends Cipher {
     public int[] decrypt(int[] numericEncryption) {
 
         for(int i = 0; i < numericEncryption.length; i++) {
-            if(numericEncryption[i] - shift < 0) numericEncryption[i] += Translation.alphabet.length;
-            numericEncryption[i] = (numericEncryption[i] - shift) % Translation.alphabet.length;
+            if(numericEncryption[i] - shift < 0) numericEncryption[i] += translater.alphabet.length;
+            numericEncryption[i] = (numericEncryption[i] - shift) % translater.alphabet.length;
         }
 
         return numericEncryption;

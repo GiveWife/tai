@@ -1,9 +1,13 @@
 package h1;
 
-public abstract class Cipher {
+import util.Printer;
 
-    private final String toEncrypt;
-    private final Translation translation = new Translation();
+public abstract class Cipher extends Translater {
+
+    private final String message, encrypted_message;
+    private final int[] numeric_start, numeric_encrypted;
+    public final Translater translater = new Translater();
+    private Printer printer;
 
     public Cipher(String message) {
         // Checks if the message contains valid characters
@@ -12,55 +16,35 @@ public abstract class Cipher {
                 System.out.println("Invalid character at position: " + i + ". Object not valid.");
                 message = "invalid";
             }
-        // Initialisation
-        this.toEncrypt = message;
-    }
 
-    /**
-     * Transfers the string to a integer array.
-     */
-    public int[] getNumeric() {
-        return translation.getNumeric(toEncrypt);
-    }
+        // Printer
+        printer = new Printer("Caesar Additive");
 
-    public int getIndexForChar(char s) {
-        return translation.getIndexForChar(s);
-    }
+        // Numeric arrays:
+        this.numeric_start = translater.getNumeric(message);
+        printer.printArr(numeric_start);
+        this.numeric_encrypted = encrypt(numeric_start);
+        printer.printArr(numeric_encrypted);
 
-    public char getCharForIndex(int s) {
-        return translation.getCharForIndex(s);
+        this.message = message;
+        this.encrypted_message = translater.getAlphabetic(numeric_encrypted);
     }
 
     public String getMessage() {
-        return toEncrypt;
+        return message;
     }
 
     public String getEncrypted() {
-        return this.construct(encrypt(getNumeric()));
-    }
-
-    public String getDecrypted() {
-        return this.construct(decrypt(encrypt(getNumeric())));
+        return encrypted_message;
     }
 
     /**
-     * Construct the encrypted message using the changed numeric values of the string
+     * Used to check if the algorithm decrypts correctly
      */
-    public String construct(int[] encryptedNumeric) {
-        char[] encrypted = new char[encryptedNumeric.length];
-        for(int i = 0; i < encryptedNumeric.length; i++) {
-            encrypted[i] = getCharForIndex(encryptedNumeric[i]);
-        }
-        return charToString(encrypted);
+    public String getDecrypted() {
+        return translater.getAlphabetic(this.decrypt(numeric_encrypted));
     }
 
-    public String charToString(char[] arr) {
-        String s = "";
-        for(int i = 0; i < arr.length; i++) {
-            s += arr[i];
-        }
-        return s;
-    }
 
     /**
      * Creates the numeric change from the original message
