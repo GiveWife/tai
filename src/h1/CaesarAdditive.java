@@ -1,23 +1,25 @@
 package h1;
 
-public class CaesarAdditive extends Cipher {
+import util.LeerstofModule;
+
+/**
+ * Need only to create object and print the results
+  */
+public class CaesarAdditive extends Cipher implements LeerstofModule {
 
     private final int shift;
 
     public CaesarAdditive(String message, int a) {
         super(message);
-        System.out.println("Shift: " + a);
         this.shift = a;
+        this.init();
     }
 
     @Override
     public int[] encrypt(int[] numericTranslation) {
 
         for(int i = 0; i < numericTranslation.length; i++) {
-            print("shift: " + shift);
-            print("Before: " + (numericTranslation[i] + shift) + ", " + (numericTranslation[i]+shift % translater.alphabet.length));
             numericTranslation[i] = (numericTranslation[i] + shift) % translater.alphabet.length;
-            print("After: " + numericTranslation[i]);
         }
 
         return numericTranslation;
@@ -33,6 +35,15 @@ public class CaesarAdditive extends Cipher {
         }
 
         return numericEncryption;
+
+    }
+
+    @Override
+    public void uitleg() {
+
+        print("Caesar additive zal eerst een array omzetten naar numerieke waarden. Hiervoor wordt de klasse Translater voor gebruikt.");
+        print("De hoofdklasse zal dan in de init() de versleutelde array aanmaken en bewaren. De klasse staat dan toe om beide arrays en");
+        print("alfabetische versies uit te printen. De encrypt() en decrypt() kunnen dus ook private zijn.");
 
     }
 

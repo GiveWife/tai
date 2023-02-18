@@ -4,8 +4,9 @@ import util.Printer;
 
 public abstract class Cipher extends Translater {
 
-    private final String message, encrypted_message;
-    private final int[] numeric_start, numeric_encrypted;
+    private final String message;
+    private String encrypted_message;
+    private int[] numeric_start, numeric_encrypted;
     public final Translater translater = new Translater();
     private Printer printer;
 
@@ -19,14 +20,16 @@ public abstract class Cipher extends Translater {
 
         // Printer
         printer = new Printer("Caesar Additive");
-
-        // Numeric arrays:
-        this.numeric_start = translater.getNumeric(message);
-        printer.printArr(numeric_start);
-        this.numeric_encrypted = encrypt(numeric_start);
-        printer.printArr(numeric_encrypted);
-
         this.message = message;
+    }
+
+    /**
+     * Package access only. Initializes this object
+     */
+    void init() {
+        this.numeric_start = translater.getNumeric(message);
+        this.numeric_encrypted = encrypt(numeric_start);
+
         this.encrypted_message = translater.getAlphabetic(numeric_encrypted);
     }
 
@@ -51,6 +54,9 @@ public abstract class Cipher extends Translater {
      */
     public abstract int[] encrypt(int[] numericTranslation);
 
+    /**
+     * Creates the numeric array that transforms it back to the original numeric message
+     */
     public abstract int[] decrypt(int[] numericEncryption);
 
 }

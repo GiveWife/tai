@@ -2,7 +2,7 @@ package h1;
 
 import util.Printer;
 
-public class Algorithm {
+public class Algorithm extends Printer {
 
     private final String name;
     public Printer printer;

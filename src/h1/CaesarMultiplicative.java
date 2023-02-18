@@ -1,12 +1,15 @@
 package h1;
 
-public class CaesarMultiplicative extends Cipher {
+import util.LeerstofModule;
+
+public class CaesarMultiplicative extends Cipher implements LeerstofModule {
 
     private final int shift;
 
     public CaesarMultiplicative(String message, int shift) {
         super(message);
         this.shift = shift;
+        this.init();
     }
 
     @Override
@@ -60,6 +63,31 @@ public class CaesarMultiplicative extends Cipher {
 
         // Return the decrypted numeric array
         return numericEncryption;
+
+    }
+
+    @Override
+    public void uitleg() {
+        StringBuilder b = new StringBuilder();
+        b.append("De Caesar Multiplictive doet dezelfde stappen als Caesar Additive. Bij het versleutelen zal de shift vermenigvuldigt\n");
+        b.append("worden met de numerieke waarden. Bij het ontcijferen moet er een sleutel gevonden worden zodat de vergelijking: \n");
+        b.append("    d * e (mod 27) = 1     e == encryptiesleutel\n");
+        b.append("geldt.\n\n");
+        b.append("Versleuteling van waarde w gaat als volgt: \n");
+        b.append("    w * e (mod 27) = v \n\n");
+        b.append("De waarde v is versleuteld. Wanneer we dan een waarde d vinden zodat: \n\n");
+        b.append("    d * e (mod 27) = 1     e == encryptiesleutel\n\n");
+        b.append("Dan kunnen we herschrijven: \n\n");
+        b.append("    v                  * d (mod 27) = w   == ONTSLEUTELING\n");
+        b.append("    ( w * e (mod 27) ) * d (mod 27) = w   == VERPLAATSEN\n");
+        b.append("    w ( e * d (mod 27) ) * (mod 27) = w   == ASSOCIATIVITEIT\n");
+        b.append("    w ( 1 )              * (mod 27) = w\n\n");
+        b.append("Bij hele grote waarden van het alfabet of numerieke waarden van de letters is dit moeilijk om het te vinden.\n");
+        b.append("Het is dus beter om Bezout Identity te gebruiken hiervoor.\n\n");
+
+        print(b.toString());
+        LeerstofModule bezout = new BezoutIdentity(1, 2, 3);
+        bezout.uitleg();
 
     }
 

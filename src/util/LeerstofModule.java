@@ -5,21 +5,11 @@ package util;
  *
  * Dit is handig voor wanneer het algoritme & de bedenkingen & inzichten achter de berekeningen niet meer duidelijk zijn
  */
-public abstract class LeerstofModule {
-
-    private final String naam;
-
-    public LeerstofModule(String naam) {
-        this.naam = naam;
-    }
+public interface LeerstofModule {
 
     /**
      * De methode die alle informatie voor de leerstofmodule uitprint
      */
-    public abstract void uitleg();
-
-    public void print(String s) {
-
-    }
+    public void uitleg();
 
 }
