@@ -66,6 +66,10 @@ public class CaesarMultiplicative extends Cipher implements LeerstofModule {
 
     }
 
+    private void decryptBezout() {
+        BezoutIdentity b = new BezoutIdentity(shift, Translater.alphabet.length, 1);
+    }
+
     @Override
     public void uitleg() {
         StringBuilder b = new StringBuilder();

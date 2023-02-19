@@ -2,7 +2,12 @@ package h1;
 
 public class AlgorithmEuclid extends Algorithm {
 
-    public AlgorithmEuclid() { super("Euclid"); }
+    private final int a1, b1;
+
+    public AlgorithmEuclid(int a, int b) { super("Euclid");
+        this.a1 = a;
+        this.b1 = b;
+    }
 
     /**
      * Determines if the given integer is a prime number
@@ -31,6 +36,9 @@ public class AlgorithmEuclid extends Algorithm {
 
     /**
      * Returns the highest divider of these two integers
+     *
+     * uses lemma 3.3:
+     *
      */
     public int getHighestDivider(int a1, int b1) {
         // Check for negatives
@@ -75,5 +83,9 @@ public class AlgorithmEuclid extends Algorithm {
         return new int[] {q, b - (a*q), a};
     }
 
+    @Override
+    public void run() {
+        getHighestDivider(a1, b1);
+    }
 
 }

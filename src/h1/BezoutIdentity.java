@@ -54,7 +54,7 @@ import util.Printer;
 public class BezoutIdentity extends Algorithm implements LeerstofModule {
 
     private final int a, b, c;
-    private AlgorithmEuclid euclid = new AlgorithmEuclid();
+    private final AlgorithmEuclid euclid;
 
     // ax + by = c
     // ax == c mod(b)
@@ -63,6 +63,7 @@ public class BezoutIdentity extends Algorithm implements LeerstofModule {
         this.a = a;
         this.b = b;
         this.c = c;
+        euclid = new AlgorithmEuclid(a, b);
     }
 
     /**
@@ -75,8 +76,13 @@ public class BezoutIdentity extends Algorithm implements LeerstofModule {
         int divider = euclid.getHighestDivider(22911, 9856);
         return euclid.isInteger(c / divider) ? true : false;
     }
-    /**
 
+    @Override
+    public void run() {
+
+    }
+
+    /**
      * En we zien dus dat:
      *
      *  1 = 11 * 5  +  (-2) * 27
