@@ -18,4 +18,6 @@ public abstract class Algorithm extends Printer {
         return name;
     }
 
+    public abstract void uitleg();
+
 }

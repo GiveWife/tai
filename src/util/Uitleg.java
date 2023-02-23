@@ -5,7 +5,7 @@ package util;
  *
  * Dit is handig voor wanneer het algoritme & de bedenkingen & inzichten achter de berekeningen niet meer duidelijk zijn
  */
-public interface LeerstofModule {
+public interface Uitleg {
 
     /**
      * De methode die alle informatie voor de leerstofmodule uitprint

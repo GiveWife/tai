@@ -1,6 +1,5 @@
 package h1;
 
-import util.LeerstofModule;
 import util.Printer;
 
 /**
@@ -51,7 +50,7 @@ import util.Printer;
  *  1 = 11 * 5  +  (-2) * 27
  *
  */
-public class BezoutIdentity extends Algorithm implements LeerstofModule {
+public class BezoutIdentity extends Algorithm {
 
     private final int a, b, c;
     private final AlgorithmEuclid euclid;

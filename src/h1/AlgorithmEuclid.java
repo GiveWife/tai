@@ -93,4 +93,9 @@ public class AlgorithmEuclid extends Algorithm {
         getHighestDivider();
     }
 
+    @Override
+    public void uitleg() {
+        
+    }
+
 }

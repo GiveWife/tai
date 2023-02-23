@@ -1,8 +1,7 @@
 package h1;
 
-import util.LeerstofModule;
 
-public class CaesarMultiplicative extends Cipher implements LeerstofModule {
+public class CaesarMultiplicative extends Cipher {
 
     private final int shift;
 
@@ -70,7 +69,6 @@ public class CaesarMultiplicative extends Cipher implements LeerstofModule {
         BezoutIdentity b = new BezoutIdentity(shift, Translater.alphabet.length, 1);
     }
 
-    @Override
     public void uitleg() {
         StringBuilder b = new StringBuilder();
         b.append("De Caesar Multiplictive doet dezelfde stappen als Caesar Additive. Bij het versleutelen zal de shift vermenigvuldigt\n");
@@ -90,7 +88,7 @@ public class CaesarMultiplicative extends Cipher implements LeerstofModule {
         b.append("Het is dus beter om Bezout Identity te gebruiken hiervoor.\n\n");
 
         print(b.toString());
-        LeerstofModule bezout = new BezoutIdentity(1, 2, 3);
+        Algorithm bezout = new BezoutIdentity(1, 2, 3);
         bezout.uitleg();
 
     }

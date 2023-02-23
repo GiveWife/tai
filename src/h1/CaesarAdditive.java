@@ -1,11 +1,10 @@
 package h1;
 
-import util.LeerstofModule;
 
 /**
  * Need only to create object and print the results
   */
-public class CaesarAdditive extends Cipher implements LeerstofModule {
+public class CaesarAdditive extends Cipher {
 
     private final int shift;
 
@@ -38,7 +37,6 @@ public class CaesarAdditive extends Cipher implements LeerstofModule {
 
     }
 
-    @Override
     public void uitleg() {
 
         print("Caesar additive zal eerst een array omzetten naar numerieke waarden. Hiervoor wordt de klasse Translater voor gebruikt.");
