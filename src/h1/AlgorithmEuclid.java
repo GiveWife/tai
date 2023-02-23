@@ -40,7 +40,7 @@ public class AlgorithmEuclid extends Algorithm {
      * uses lemma 3.3:
      *
      */
-    public int getHighestDivider(int a1, int b1) {
+    public int getHighestDivider() {
         // Check for negatives
         if(a1 <= 0 || b1 <= 0) return -1;
 
@@ -66,6 +66,11 @@ public class AlgorithmEuclid extends Algorithm {
 
     }
 
+    public static int highestdiv(int a, int b) {
+        AlgorithmEuclid euclid = new AlgorithmEuclid(a, b);
+        return euclid.getHighestDivider();
+    }
+
     /**
      * note that parameters should be passed in a different order!
      *
@@ -85,7 +90,7 @@ public class AlgorithmEuclid extends Algorithm {
 
     @Override
     public void run() {
-        getHighestDivider(a1, b1);
+        getHighestDivider();
     }
 
 }

@@ -73,8 +73,8 @@ public class BezoutIdentity extends Algorithm implements LeerstofModule {
      * Algemeen geldt dat: d = (a, b) moet e kunnen delen.
      */
     public boolean isPossible() {
-        int divider = euclid.getHighestDivider(22911, 9856);
-        return euclid.isInteger(c / divider) ? true : false;
+        int divider = euclid.getHighestDivider();
+        return euclid.isInteger(c / divider);
     }
 
     @Override
