@@ -1,14 +1,29 @@
-package h1;
+package h1.algorithms;
 
+
+import util.OperationTime;
+import util.Translater;
 
 public class CaesarMultiplicative extends Cipher {
 
     private final int shift;
 
     public CaesarMultiplicative(String message, int shift) {
-        super(message);
+        super(message, "Caesar Multiplicative");
         this.shift = shift;
-        this.init();
+    }
+
+    /**
+     * Superclass handles run!
+     */
+    @Override
+    public void run() {
+        super.run();
+    }
+
+    @Override
+    public String values() {
+        return "(" + getMessage() + ", " + shift + ")";
     }
 
     @Override
@@ -69,6 +84,7 @@ public class CaesarMultiplicative extends Cipher {
         BezoutIdentity b = new BezoutIdentity(shift, Translater.alphabet.length, 1);
     }
 
+    @Override
     public void uitleg() {
         StringBuilder b = new StringBuilder();
         b.append("De Caesar Multiplictive doet dezelfde stappen als Caesar Additive. Bij het versleutelen zal de shift vermenigvuldigt\n");
@@ -87,7 +103,7 @@ public class CaesarMultiplicative extends Cipher {
         b.append("Bij hele grote waarden van het alfabet of numerieke waarden van de letters is dit moeilijk om het te vinden.\n");
         b.append("Het is dus beter om Bezout Identity te gebruiken hiervoor.\n\n");
 
-        print(b.toString());
+        printer.print(b.toString());
         Algorithm bezout = new BezoutIdentity(1, 2, 3);
         bezout.uitleg();
 

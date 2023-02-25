@@ -1,4 +1,4 @@
-package h1;
+package h1.algorithms;
 
 
 /**
@@ -9,9 +9,8 @@ public class CaesarAdditive extends Cipher {
     private final int shift;
 
     public CaesarAdditive(String message, int a) {
-        super(message);
+        super(message, "Caesar Additive");
         this.shift = a;
-        this.init();
     }
 
     @Override
@@ -37,11 +36,25 @@ public class CaesarAdditive extends Cipher {
 
     }
 
+    /**
+     * Superclass handles run!
+     * == init()
+     */
+    @Override
+    public void run() {
+        super.run();
+    }
+
+    @Override
+    public String values() {
+        return null;
+    }
+
     public void uitleg() {
 
-        print("Caesar additive zal eerst een array omzetten naar numerieke waarden. Hiervoor wordt de klasse Translater voor gebruikt.");
-        print("De hoofdklasse zal dan in de init() de versleutelde array aanmaken en bewaren. De klasse staat dan toe om beide arrays en");
-        print("alfabetische versies uit te printen. De encrypt() en decrypt() kunnen dus ook private zijn.");
+        printer.print("Caesar additive zal eerst een array omzetten naar numerieke waarden. Hiervoor wordt de klasse Translater voor gebruikt.");
+        printer.print("De hoofdklasse zal dan in de init() de versleutelde array aanmaken en bewaren. De klasse staat dan toe om beide arrays en");
+        printer.print("alfabetische versies uit te printen. De encrypt() en decrypt() kunnen dus ook private zijn.");
 
     }
 

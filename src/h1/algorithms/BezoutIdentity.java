@@ -1,4 +1,4 @@
-package h1;
+package h1.algorithms;
 
 import util.Printer;
 import util.VectorOperation;
@@ -53,8 +53,10 @@ import util.VectorOperation;
  */
 public class BezoutIdentity extends Algorithm {
 
-    private final int a, b;
-    private final float c;
+    // Original values
+    private final int oa, ob, oc;
+    private int a, b;
+    private float c;
     private int[] solution;
     private final AlgorithmEuclid euclid;
 
@@ -62,6 +64,11 @@ public class BezoutIdentity extends Algorithm {
     // ax == c mod(b)
     public BezoutIdentity(int a, int b, int c) {
         super("Bezout");
+        // Copy of original
+        this.oa = a;
+        this.ob = b;
+        this.oc = c;
+        // Non final variables
         this.a = a;
         this.b = b;
         this.c = (float) c;
@@ -79,11 +86,15 @@ public class BezoutIdentity extends Algorithm {
         return euclid.isInteger(c / divider);
     }
 
+    public void solution() {
+        print(Printer.WHITE_BOLD_BRIGHT + "Solution of " + Printer.BLUE_BOLD_BRIGHT + values() + Printer.WHITE_BOLD_BRIGHT + " is: " + Printer.GREEN_BOLD_BRIGHT + printer.arrString(solution) + Printer.ANSI_RESET);
+    }
+
     /**
      * Returns constructor values in a, b, c order
      */
     public int[] getValues() {
-        return new int[]{a, b, (int)c};
+        return new int[]{a, b, (int) c};
     }
 
     /**
@@ -94,28 +105,79 @@ public class BezoutIdentity extends Algorithm {
     @Override
     public void run() {
 
-        if(hasRun()) return;
+        if(hasRun()) {
+            solution();
+            return;
+        }
 
         if(!isPossible()) {
             print("Bezout Identity is not possible for the chosen combination of integers: a = " + a + ", b = " + b + ", c = " + c);
             return;
         }
 
+        // Check for validity of operation once again.
         AlgorithmEuclid euclid = new AlgorithmEuclid(a, b);
 
-        if(euclid.getHighestDivider() == 1) runOneSolution();
+        // If highest divider is 1, we have one solution.
+        if(euclid.getHighestDivider() == 1) {
+
+            // Check for possible simplifications to reduce computing power;
+            euclid = new AlgorithmEuclid(a, (int) c);
+
+            // ax == ay mod m -> x = y mod m. Simplify first
+            if(euclid.getHighestDivider() != 1) {
+                a = a / euclid.getHighestDivider();
+                c = c / euclid.getHighestDivider();
+                print("Simplified from: " + oa + "x + " + ob + "y = " + oc);
+                print("To: " + a + "x + " + b + "y = " + c);
+            }
+
+            // Run solution
+            runOneSolution();
+        }
+
+        // If highest divider of a and b is not 1, we have multiple solutions.
         else {
             // Highest div is not 1, so we check if c is also dividable by our highest divider
             if(euclid.divide(euclid.getHighestDivider(), (int) c)) {
 
+                print("c  = " + c + " is divisable by " + euclid.getHighestDivider());
+                AlgorithmEuclid divider = new AlgorithmEuclid(euclid.getHighestDivider(), (int) c);
+                print("c =" + c + " and " + euclid.getHighestDivider() + " can both be divided by: " + divider.getHighestDivider());
+
+                a = a / divider.getHighestDivider();
+                b = b / divider.getHighestDivider();
+                c = c / divider.getHighestDivider();
+
+                runOneSolution();
+
+                // We can divide everything by getHighestDivider.
+
+
             }
         }
 
-
         toggleRun();
+        solution();
 
     }
 
+    /**
+     * This method calculates one solution of the bezout identity. This runs when gcd(a, b) == 1.
+     * {@link BezoutIdentity#isPossible()} checks if this gcd divides c.
+     *
+     * We use {@link VectorOperation} to calculate the vectors of this problem:
+     *  veca = (a, 1, 0)
+     *  vecb = (b, 0, 1)
+     *
+     * We use {@link AlgorithmEuclid#fit(int, int)} to subtract vectors from eachother.
+     * We will end on (1, x, y). The vector will be multiplied by c in the end to get:
+     *
+     * (c , cx, cy)
+     *
+     * So we have our identity: c = cx + cy
+     * We downscale cx and cy via our value b.
+     */
     private void runOneSolution() {
         int it = 0;
         // Vector Operation handler
@@ -151,8 +213,8 @@ public class BezoutIdentity extends Algorithm {
 
             }
 
-            //print("veca: " + printer.arrString(veca));
-            //print("vecb: " + printer.arrString(vecb));
+            print("veca: " + printer.arrString(veca));
+            print("vecb: " + printer.arrString(vecb));
 
             // Switch toggle value
             togg = togg == 1 ? 0 : 1;
@@ -179,7 +241,6 @@ public class BezoutIdentity extends Algorithm {
         int y = x * a > c ? (int) ((x*a)-c) / (-b) : (int) ((x*a)-c) / (b);
 
         solution = new int[] {x, y};
-        print(printer.arrString(solution));
 
     }
 

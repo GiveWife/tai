@@ -1,4 +1,4 @@
-package h1;
+package util;
 
 import util.Printer;
 

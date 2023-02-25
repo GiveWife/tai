@@ -1,6 +1,6 @@
 package tests;
 
-import h1.AlgorithmEuclid;
+import h1.algorithms.AlgorithmEuclid;
 
 public class EuclidTest extends TestBase {
 

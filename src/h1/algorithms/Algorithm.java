@@ -1,8 +1,8 @@
-package h1;
+package h1.algorithms;
 
 import util.Printer;
 
-public abstract class Algorithm extends Printer {
+public abstract class Algorithm {
 
     private final String name;
     private boolean hasRun = false;
@@ -30,5 +30,9 @@ public abstract class Algorithm extends Printer {
     }
 
     public abstract void uitleg();
+
+    protected void print(String s) {
+        printer.print(s);
+    }
 
 }

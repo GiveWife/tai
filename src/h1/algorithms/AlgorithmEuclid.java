@@ -1,4 +1,4 @@
-package h1;
+package h1.algorithms;
 
 public class AlgorithmEuclid extends Algorithm {
 

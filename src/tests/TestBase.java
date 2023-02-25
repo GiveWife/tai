@@ -104,14 +104,14 @@ public abstract class TestBase {
      * Makes given string red.
      */
     private String red(String s) {
-        return Printer.ANSI_RED + s + Printer.ANSI_RESET;
+        return Printer.RED_BOLD_BRIGHT + s + Printer.ANSI_RESET;
     }
 
     /**
      * Makes given string green
      */
     private String green(String s) {
-        return Printer.ANSI_GREEN + s + Printer.ANSI_RESET;
+        return Printer.GREEN_BOLD_BRIGHT + s + Printer.ANSI_RESET;
     }
 
 }

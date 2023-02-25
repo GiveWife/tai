@@ -1,7 +1,6 @@
 package tests;
 
-import h1.AlgorithmEuclid;
-import h1.BezoutIdentity;
+import h1.algorithms.BezoutIdentity;
 
 public class BezoutTest extends TestBase {
 
