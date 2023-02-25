@@ -18,16 +18,21 @@ public class Printer {
         System.out.println(s);
     }
 
+    public void printo(String s) {
+        print(origin + " " + s);
+    }
+
     public void printArr(int[] arr) {
         print(arrString(arr));
     }
 
     public String arrString(int[] arr) {
-        String s = "";
+        String s = "[";
         for(int i = 0; i < arr.length; i++) {
             s += arr[i];
-            if(i < arr.length) s += ", ";
+            if(i < arr.length-1) s += ", ";
         }
+        s += "]";
         return s;
     }
 

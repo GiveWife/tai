@@ -1,6 +1,7 @@
 package h1;
 
 import util.Printer;
+import util.VectorOperation;
 
 /**
  * BezoutIdentity was relevant voor de multiplicatieve caesar cijfer.
@@ -52,7 +53,9 @@ import util.Printer;
  */
 public class BezoutIdentity extends Algorithm {
 
-    private final int a, b, c;
+    private final int a, b;
+    private final float c;
+    private int[] solution;
     private final AlgorithmEuclid euclid;
 
     // ax + by = c
@@ -61,7 +64,7 @@ public class BezoutIdentity extends Algorithm {
         super("Bezout");
         this.a = a;
         this.b = b;
-        this.c = c;
+        this.c = (float) c;
         euclid = new AlgorithmEuclid(a, b);
     }
 
@@ -76,9 +79,111 @@ public class BezoutIdentity extends Algorithm {
         return euclid.isInteger(c / divider);
     }
 
+    /**
+     * Returns constructor values in a, b, c order
+     */
+    public int[] getValues() {
+        return new int[]{a, b, (int)c};
+    }
+
+    /**
+     * Solves Bezout Identity.
+     *
+     * Stores a solution vector
+     */
     @Override
     public void run() {
 
+        if(hasRun()) return;
+
+        if(!isPossible()) {
+            print("Bezout Identity is not possible for the chosen combination of integers: a = " + a + ", b = " + b + ", c = " + c);
+            return;
+        }
+
+        AlgorithmEuclid euclid = new AlgorithmEuclid(a, b);
+
+        if(euclid.getHighestDivider() == 1) runOneSolution();
+
+
+        toggleRun();
+
+    }
+
+    private void runOneSolution() {
+        int it = 0;
+        // Vector Operation handler
+        VectorOperation op = new VectorOperation();
+
+        // We will solve for 1; then scale up to c
+        int[] veca = new int[] {a, 1, 0};
+        int[] vecb = new int[] {b, 0, 1};
+
+        // We subtract vectors from eachother. If a > b, we would subtract bx from a
+        // 1 -> start with vecb
+        int togg = a > b ? 1 : 0;
+
+        print("veca: " + printer.arrString(veca));
+        print("vecb: " + printer.arrString(vecb));
+
+        while(veca[0] != 1 && vecb[0] != 1 && it < 10) {
+
+            // Check the highest divider ; we need not worry about if a > b, the algorithm will detect that for us
+            AlgorithmEuclid euclid = new AlgorithmEuclid(veca[0], vecb[0]);
+            print("Highest diff: " + euclid.getHighestDivider());
+            int highestDivider = euclid.getHighestDivider();
+
+            // Update vectors. Toggle == 1, subtract b from a;
+            if(togg == 1) {
+
+                // Subtract b from a
+                veca = op.subtract(veca, vecb, highestDivider);
+
+            }
+            else {
+
+                // Subtract a from b
+                vecb = op.subtract(vecb, veca, highestDivider);
+
+            }
+
+            print("veca: " + printer.arrString(veca));
+            print("vecb: " + printer.arrString(vecb));
+
+            // Switch toggle value
+            togg = togg == 1 ? 0 : 1;
+
+            it++;
+
+        }
+
+        // Select latest edited row
+        int[] res = togg == 1 ? vecb : veca;
+
+        // Multiply so we have c = .. + ..
+        res = op.multiply(res, (int) c);
+
+        // We must now downscale our x in : ax + by = c
+        // 3*8 + 5*(-4) = 4 -> 24-20 = 4
+        // 3*3 + 5*(-1) = 4 -> 9 - 5 = 4
+        // All solutions 3 + 5t = x
+        int x = res[1] % b;
+        int y = ((int) (a*x) - (int) c) / b;
+
+
+        solution = new int[] {x, y};
+        print(printer.arrString(solution));
+
+    }
+
+    private int getSign(int x) {
+        return x / Math.abs(x);
+    }
+
+
+    @Override
+    public String values() {
+        return "(" + a + "," + b + "," + (int) c + ")";
     }
 
     /**

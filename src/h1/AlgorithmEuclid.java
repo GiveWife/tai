@@ -3,10 +3,12 @@ package h1;
 public class AlgorithmEuclid extends Algorithm {
 
     private final int a1, b1;
+    private int highestDivider = -1;
 
     public AlgorithmEuclid(int a, int b) { super("Euclid");
         this.a1 = a;
         this.b1 = b;
+        print("a: " + a + ", b: " + b);
     }
 
     /**
@@ -53,16 +55,16 @@ public class AlgorithmEuclid extends Algorithm {
 
         // Get result from division
         int[] res = runEuclid(b, a);
+        print("first it: " + printer.arrString(res));
 
         // We can keep executing euclid until our rest is 0
-        // We should make sure that
-        while(res[1] != 0 && res[0] >= 1 && res[1] >= 1) {
-
-            res = runEuclid(res[2], res[1]);
-
+        while(res[2] != 0) {
+            res = runEuclid(res[1], res[2]);
+            print("euclid: " + printer.arrString(res));
         }
 
-        return res[1] == 0 ? res[2] : -1;
+        // If rest is 0, we can return latest a
+        return res[2] == 0 ? res[1] : -1;
 
     }
 
@@ -75,6 +77,9 @@ public class AlgorithmEuclid extends Algorithm {
      * note that parameters should be passed in a different order!
      *
      * b = aq + c
+     *
+     * returns: { q ; a ; REST }
+     *
      * @pre | b > a
      */
     public int[] runEuclid(int b, int a) {
@@ -85,17 +90,24 @@ public class AlgorithmEuclid extends Algorithm {
         int q = (int) Math.floor(division);
 
         // c = b - aq
-        return new int[] {q, b - (a*q), a};
+        return new int[] {q, a, b - (a*q)};
+    }
+
+    @Override
+    public String values() {
+        return "(" + a1 + "," + b1 + ")";
     }
 
     @Override
     public void run() {
+        if(hasRun()) return;
         getHighestDivider();
+        this.toggleRun();
     }
 
     @Override
     public void uitleg() {
-        
+        print("Met behulp van lemma 3.3 kunnen we euclidisch algoritme uitvoeren");
     }
 
 }
