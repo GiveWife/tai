@@ -8,7 +8,6 @@ public class AlgorithmEuclid extends Algorithm {
     public AlgorithmEuclid(int a, int b) { super("Euclid");
         this.a1 = a;
         this.b1 = b;
-        print("a: " + a + ", b: " + b);
     }
 
     /**
@@ -37,6 +36,33 @@ public class AlgorithmEuclid extends Algorithm {
     }
 
     /**
+     * Returns how many times a fits in b. The algorithm will make sure the integers get treated correctly:
+     *  a > b : c+ (b*q) = a
+     *  a < b : c+ (a*q) = bq
+     *
+     * Remainder can be calculated manually
+     */
+    public int fit(int a, int b) {
+        // If variable a > b, then a would never fit in b. We change values
+        if(a > b) {
+            int c = b;
+            b = a;
+            a = c;
+        }
+        // Determine their quotient
+        float i = b / a;
+        // Floor it, so 5/4 = 1.2 ==> 1
+        return (int) Math.floor(i);
+    }
+
+    /**
+     * Returns a boolean value determining if a would divide b.
+     */
+    public boolean divide(int a, int b) {
+        return isInteger((float) b / a);
+    }
+
+    /**
      * Returns the highest divider of these two integers
      *
      * uses lemma 3.3:
@@ -55,12 +81,10 @@ public class AlgorithmEuclid extends Algorithm {
 
         // Get result from division
         int[] res = runEuclid(b, a);
-        print("first it: " + printer.arrString(res));
 
         // We can keep executing euclid until our rest is 0
         while(res[2] != 0) {
             res = runEuclid(res[1], res[2]);
-            print("euclid: " + printer.arrString(res));
         }
 
         // If rest is 0, we can return latest a

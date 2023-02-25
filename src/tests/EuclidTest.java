@@ -28,6 +28,18 @@ public class EuclidTest extends TestBase {
         e = new AlgorithmEuclid(7,10);
         testValue(e.values(), 1, e.getHighestDivider());
 
+        print("\nTesting euclid's fit method");
+        testValue("(9,4)", 2, e.fit(9,4));
+        testValue("(4,9)", 2, e.fit(4,9));
+
+        print("\nTesting euclid's divide method");
+        testValue("(3,9)", true, e.divide(3,9));
+        testValue("(9,3)", false, e.divide(9,3));
+        testValue("(4,3)", false, e.divide(4,3));
+        testValue("(3,4)", false, e.divide(3, 4));
+
+        evaluate();
+
     }
 
 }

@@ -104,6 +104,12 @@ public class BezoutIdentity extends Algorithm {
         AlgorithmEuclid euclid = new AlgorithmEuclid(a, b);
 
         if(euclid.getHighestDivider() == 1) runOneSolution();
+        else {
+            // Highest div is not 1, so we check if c is also dividable by our highest divider
+            if(euclid.divide(euclid.getHighestDivider(), (int) c)) {
+
+            }
+        }
 
 
         toggleRun();
@@ -123,15 +129,13 @@ public class BezoutIdentity extends Algorithm {
         // 1 -> start with vecb
         int togg = a > b ? 1 : 0;
 
-        print("veca: " + printer.arrString(veca));
-        print("vecb: " + printer.arrString(vecb));
+        //print("veca: " + printer.arrString(veca));
+        //print("vecb: " + printer.arrString(vecb));
 
         while(veca[0] != 1 && vecb[0] != 1 && it < 10) {
 
             // Check the highest divider ; we need not worry about if a > b, the algorithm will detect that for us
-            AlgorithmEuclid euclid = new AlgorithmEuclid(veca[0], vecb[0]);
-            print("Highest diff: " + euclid.getHighestDivider());
-            int highestDivider = euclid.getHighestDivider();
+            int highestDivider = euclid.fit(veca[0], vecb[0]);
 
             // Update vectors. Toggle == 1, subtract b from a;
             if(togg == 1) {
@@ -147,8 +151,8 @@ public class BezoutIdentity extends Algorithm {
 
             }
 
-            print("veca: " + printer.arrString(veca));
-            print("vecb: " + printer.arrString(vecb));
+            //print("veca: " + printer.arrString(veca));
+            //print("vecb: " + printer.arrString(vecb));
 
             // Switch toggle value
             togg = togg == 1 ? 0 : 1;
@@ -168,8 +172,11 @@ public class BezoutIdentity extends Algorithm {
         // 3*3 + 5*(-1) = 4 -> 9 - 5 = 4
         // All solutions 3 + 5t = x
         int x = res[1] % b;
-        int y = ((int) (a*x) - (int) c) / b;
 
+        // ax + by = c
+        // if a*x > c, then we should decrease that number by y*b to get c.
+        // calculate: ax - c = by ; normally we can divide left part by b!
+        int y = x * a > c ? (int) ((x*a)-c) / (-b) : (int) ((x*a)-c) / (b);
 
         solution = new int[] {x, y};
         print(printer.arrString(solution));
