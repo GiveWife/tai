@@ -1,5 +1,6 @@
 package h1.algorithms;
 
+import util.Color;
 import util.Printer;
 import util.VectorOperation;
 
@@ -59,7 +60,7 @@ public class BezoutIdentity extends Algorithm {
     private float c;
     private int[] solution;
     private final AlgorithmEuclid euclid;
-
+    private String solutionString = "unsolved";
     // ax + by = c
     // ax == c mod(b)
     public BezoutIdentity(int a, int b, int c) {
@@ -86,15 +87,43 @@ public class BezoutIdentity extends Algorithm {
         return euclid.isInteger(c / divider);
     }
 
-    public void solution() {
-        print(Printer.WHITE_BOLD_BRIGHT + "Solution of " + Printer.BLUE_BOLD_BRIGHT + values() + Printer.WHITE_BOLD_BRIGHT + " is: " + Printer.GREEN_BOLD_BRIGHT + printer.arrString(solution) + Printer.ANSI_RESET);
+    /**
+     * Returns all other solutions if the modulo was simplified.
+     */
+    public int[] getMultipleSolutions() {
+        // If b was simplified, return all other solutions
+        if(b != ob) {
+            int checkfit = euclid.fit(ob - solution[0], b);
+            int count = 0;
+
+            int[] mult = new int[checkfit];
+
+            // Loop over how many times we can find a solution.
+            while(count < checkfit) {
+
+                // Alter this solution: add our current modulo to it.
+                mult[count] = solution[0] + b;
+
+                count++;
+            }
+            return mult;
+        }
+        // Return normal solution
+        return new int[] {solution[0]};
     }
 
     /**
-     * Returns constructor values in a, b, c order
+     * Returns the solution string for this object.
      */
-    public int[] getValues() {
-        return new int[]{a, b, (int) c};
+    private String getSolutionString() {
+        return solutionString;
+    }
+
+    /**
+     * Prints the solution of this object.
+     */
+    public void solution() {
+        print(Printer.WHITE_BOLD_BRIGHT + "Solution of " + Printer.BLUE_BOLD_BRIGHT + values() + Printer.WHITE_BOLD_BRIGHT + " is: " + Printer.GREEN_BOLD_BRIGHT + solutionString + Printer.ANSI_RESET);
     }
 
     /**
@@ -133,7 +162,10 @@ public class BezoutIdentity extends Algorithm {
             }
 
             // Run solution
-            runOneSolution();
+            calculate();
+
+            // Set solution string, since sometimes multiple solutions are possible
+            solutionString = printer.arrString(solution);
         }
 
         // If highest divider of a and b is not 1, we have multiple solutions.
@@ -149,10 +181,37 @@ public class BezoutIdentity extends Algorithm {
                 b = b / divider.getHighestDivider();
                 c = c / divider.getHighestDivider();
 
-                runOneSolution();
+                calculate();
 
-                // We can divide everything by getHighestDivider.
+                // if our solution for x == a
+                // then we can add our new mod b to a until we reach ob
 
+                // We subtract our solution x from our original modulo.
+                // Then we see how many times our simplified modulo can be added to our solution
+                int checkfit = euclid.fit(ob - solution[0], b);
+                int count = 0;
+
+                // Add our first solution first!
+                solutionString = printer.arrString(solution);
+
+                // Loop over how many times we can find a solution.
+                while(count < checkfit) {
+
+                    // Create new array from solution.
+                    int[] temp_sol = solution;
+
+                    // Alter this solution: add our current modulo to it.
+                    temp_sol[0] += b;
+
+                    // If ob = 6, x + b == 6, then our solution is actually 0.
+                    if(temp_sol[0] % ob == 0) break;
+                    solutionString += Color.white(" ,");
+
+                    // Add the solution to our string
+                    solutionString += Color.greenb(printer.arrString(temp_sol));
+
+                    count++;
+                }
 
             }
         }
@@ -178,7 +237,7 @@ public class BezoutIdentity extends Algorithm {
      * So we have our identity: c = cx + cy
      * We downscale cx and cy via our value b.
      */
-    private void runOneSolution() {
+    private void calculate() {
         int it = 0;
         // Vector Operation handler
         VectorOperation op = new VectorOperation();
@@ -244,11 +303,6 @@ public class BezoutIdentity extends Algorithm {
 
     }
 
-    private int getSign(int x) {
-        return x / Math.abs(x);
-    }
-
-
     @Override
     public String values() {
         return "(" + a + "," + b + "," + (int) c + ")";
@@ -303,4 +357,5 @@ public class BezoutIdentity extends Algorithm {
         print(b.toString());
 
     }
+
 }
