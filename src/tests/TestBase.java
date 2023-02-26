@@ -2,9 +2,8 @@ package tests;
 
 import util.Printer;
 
-public abstract class TestBase {
+public abstract class TestBase extends Printer {
 
-    private Printer printer = new Printer();
 
     private final String name;
     private int tests = 0;
@@ -22,7 +21,7 @@ public abstract class TestBase {
      * Gives an evaluation of the functionality of this class.
      */
     public final void evaluate() {
-        print("\n\n" + Printer.GREEN_BOLD + "Test of " + getName() + " passed " + (tests-fails) + " of " + tests + " tests" + Printer.ANSI_RESET);
+        print("\n" + Printer.GREEN_BOLD + "Test of " + getName() + " passed " + (tests-fails) + " of " + tests + " tests" + Printer.ANSI_RESET);
     }
 
     /**
@@ -59,21 +58,21 @@ public abstract class TestBase {
      */
     public final void testValue(int[] arr1, int[] arr2) {
         tests++;
-        if(arr1.length != arr2.length) print("Test invalid: " + printer.arrString(arr1) + " - " + printer.arrString(arr2) + ". Array lengths do not match.");
+        if(arr1.length != arr2.length) print("Test invalid: " + arrString(arr1) + " - " + arrString(arr2) + ". Array lengths do not match.");
 
         boolean equal = true;
         for(int i = 0; i < arr1.length; i++) {
             if(arr1[i] != arr2[i]) equal = false;
         }
-        if(equal) match(printer.arrString(arr1), printer.arrString(arr2));
+        if(equal) match(arrString(arr1), arrString(arr2));
         else {
             fails++;
-            nonmatch(printer.arrString(arr1), printer.arrString(arr2));
+            nonmatch(arrString(arr1), arrString(arr2));
         }
     }
 
     private void match(String value1, String value2) {
-        print(failPrint(), value1, " and ", value2, " match.");
+        print(passPrint(), value1, " and ", value2, " match.");
     }
 
     private void nonmatch(String value1, String value2) {
@@ -91,10 +90,6 @@ public abstract class TestBase {
         print(passPrint(), values, " -> expected: ", expected, " ; calculated: ", calculated);
     }
 
-    protected void print(String s) {
-        printer.print(s);
-    }
-
     private String failPrint() {
         return build("Test ", red("failed"), ": ");
         //return "Test " + red("failed") + ": ";
@@ -103,25 +98,6 @@ public abstract class TestBase {
     private String passPrint() {
         return build("Test ", green("passed"), ": ");
         //return "Test " + green("passed") + ": ";
-    }
-
-    /**
-     * Possible new way to print out our tests
-     */
-    private void print(String... s) {
-        StringBuilder b = new StringBuilder();
-        for(int i = 0; i < s.length; i++) {
-            b.append(s[i]);
-        }
-        print(b.toString());
-    }
-
-    private String build(String... s) {
-        StringBuilder b = new StringBuilder();
-        for(int i = 0; i < s.length; i++) {
-            b.append(s[i]);
-        }
-        return b.toString();
     }
 
     /**

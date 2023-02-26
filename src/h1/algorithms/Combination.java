@@ -1,5 +1,7 @@
 package h1.algorithms;
 
+import util.Printer;
+
 public class Combination extends Algorithm {
 
     private final int n, k;
@@ -9,9 +11,15 @@ public class Combination extends Algorithm {
         super("Combination");
         this.n = n;
         this.k = k;
-        if(n < 0 || k < 0) {
+        if(n < 0 || k < 0 || n < k)
+            print(printer.build(Printer.RED_BOLD_BRIGHT, "Invalid parameters for ", Printer.WHITE_BOLD_BRIGHT, "Combination ", values()));
+    }
 
-        }
+    /**
+     * Returns the solution of this combination
+     */
+    public int getSolution() {
+        return solution;
     }
 
     @Override
@@ -35,7 +43,7 @@ public class Combination extends Algorithm {
 
     @Override
     public String values() {
-        return null;
+        return this.n + " C " + this.k;
     }
 
     @Override

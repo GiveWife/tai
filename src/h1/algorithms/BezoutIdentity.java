@@ -58,6 +58,7 @@ public class BezoutIdentity extends Algorithm {
     private final int oa, ob, oc;
     private int a, b;
     private float c;
+    // Solution expression: ax + by = c
     private int[] solution;
     private final AlgorithmEuclid euclid;
     // ax + by = c
@@ -89,10 +90,12 @@ public class BezoutIdentity extends Algorithm {
     /**
      * Returns all other solutions if the modulo was simplified.
      */
-    public int[] getMultipleSolutions() {
+    public int[] getSolutions() {
+
         // If b was simplified, return all other solutions
         if(b != ob) {
             int checkfit = euclid.fit(ob - solution[0], b);
+
             int count = 0;
 
             int[] mult = new int[checkfit];
@@ -101,7 +104,7 @@ public class BezoutIdentity extends Algorithm {
             while(count < checkfit) {
 
                 // Alter this solution: add our current modulo to it.
-                mult[count] = solution[0] + b;
+                mult[count] = solution[0] + (b*count);
 
                 count++;
             }
@@ -149,8 +152,8 @@ public class BezoutIdentity extends Algorithm {
             if(euclid.getHighestDivider() != 1) {
                 a = a / euclid.getHighestDivider();
                 c = c / euclid.getHighestDivider();
-                print("Simplified from: " + oa + "x + " + ob + "y = " + oc);
-                print("To: " + a + "x + " + b + "y = " + c);
+                //print("Simplified from: " + oa + "x + " + ob + "y = " + oc);
+                //print("To: " + a + "x + " + b + "y = " + c);
             }
 
             // Run solution
@@ -158,6 +161,7 @@ public class BezoutIdentity extends Algorithm {
 
             // Set solution string, since sometimes multiple solutions are possible
             solutionString = printer.arrString(solution);
+
         }
 
         // If highest divider of a and b is not 1, we have multiple solutions.
@@ -169,9 +173,9 @@ public class BezoutIdentity extends Algorithm {
                 AlgorithmEuclid divider = new AlgorithmEuclid(euclid.getHighestDivider(), (int) c);
                 //print("c =" + c + " and " + euclid.getHighestDivider() + " can both be divided by: " + divider.getHighestDivider());
 
-                a = a / divider.getHighestDivider();
-                b = b / divider.getHighestDivider();
-                c = c / divider.getHighestDivider();
+                a = a / euclid.getHighestDivider();
+                b = b / euclid.getHighestDivider();
+                c = c / euclid.getHighestDivider();
 
                 calculate();
 
@@ -190,10 +194,10 @@ public class BezoutIdentity extends Algorithm {
                 while(count < checkfit) {
 
                     // Create new array from solution.
-                    int[] temp_sol = solution;
+                    int[] temp_sol = solution.clone();
 
                     // Alter this solution: add our current modulo to it.
-                    temp_sol[0] += b;
+                    temp_sol[0] += (b*(count+1));
 
                     // If ob = 6, x + b == 6, then our solution is actually 0.
                     if(temp_sol[0] % ob == 0) break;
@@ -203,13 +207,13 @@ public class BezoutIdentity extends Algorithm {
                     solutionString += Color.greenb(printer.arrString(temp_sol));
 
                     count++;
+
                 }
 
             }
         }
 
         toggleRun();
-        solution();
 
     }
 
@@ -264,8 +268,8 @@ public class BezoutIdentity extends Algorithm {
 
             }
 
-            print("veca: " + printer.arrString(veca));
-            print("vecb: " + printer.arrString(vecb));
+            //print("veca: " + printer.arrString(veca));
+            //print("vecb: " + printer.arrString(vecb));
 
             // Switch toggle value
             togg = togg == 1 ? 0 : 1;
@@ -284,6 +288,13 @@ public class BezoutIdentity extends Algorithm {
         // 3*8 + 5*(-4) = 4 -> 24-20 = 4
         // 3*3 + 5*(-1) = 4 -> 9 - 5 = 4
         // All solutions 3 + 5t = x
+
+        //Fix: negative values are now also being transferred to positive!
+        while(res[1] < 0) {
+            res[1] += b;
+        }
+
+        // Downscale values above modulo
         int x = res[1] % b;
 
         // ax + by = c
@@ -297,7 +308,7 @@ public class BezoutIdentity extends Algorithm {
 
     @Override
     public String values() {
-        return "(" + a + "," + b + "," + (int) c + ")";
+        return oa + "x + " + ob + "y = " + (int) oc + "";
     }
 
     /**

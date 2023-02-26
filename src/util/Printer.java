@@ -83,4 +83,23 @@ public class Printer {
         System.out.println("[" + origin + "] " + s);
     }
 
+    /**
+     * Possible new way to print out our tests
+     */
+    public void print(String... s) {
+        StringBuilder b = new StringBuilder();
+        for(int i = 0; i < s.length; i++) {
+            b.append(s[i]);
+        }
+        print(b.toString());
+    }
+
+    public String build(String... s) {
+        StringBuilder b = new StringBuilder();
+        for(int i = 0; i < s.length; i++) {
+            b.append(s[i]);
+        }
+        return b.toString();
+    }
+
 }

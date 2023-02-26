@@ -37,24 +37,47 @@ public abstract class Algorithm {
         print(b.toString());
     }
 
+    /**
+     * This sets this object as completed.
+     */
     public final void toggleRun() {
         this.hasRun = true;
     }
 
+    /**
+     * Returns if this object has already ran
+     */
     public final boolean hasRun() {
         return this.hasRun;
     }
 
+    /**
+     * The method that runs the algorithm
+     */
     public abstract void run();
 
+    /**
+     * A string representation of the problem.
+     */
     public abstract String values();
 
+    /**
+     * Returns the name of this algorithm
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Prints out an explanation behind this specific algorithm.
+     */
     public abstract void uitleg();
 
+    /**
+     * Package & subpackage access to {@link Printer} object.
+     *
+     * Essentially, the child classes can either access the parent printer, or create a local printer
+     */
     protected void print(String s) {
         printer.print(s);
     }

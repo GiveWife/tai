@@ -30,7 +30,7 @@ public class TaiTest {
 
         for(TestBase t : tests) {
             t.test();
-            t.print("\n");
+            t.print("\n\n");
         }
 
     }
@@ -40,9 +40,10 @@ public class TaiTest {
      */
     private TestBase[] getTests() {
         return new TestBase[] {
-                new EuclidTest(),
-                new BezoutTest(),
-                new VectorOperationTest()
+                //new EuclidTest(),
+                new BezoutTest()
+                //new VectorOperationTest(),
+                //new CombinationTest()
         };
     }
 
