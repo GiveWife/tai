@@ -2,6 +2,8 @@ package h1.algorithms;
 
 public class Combination extends Algorithm {
 
+    private final int n, k;
+    private int solution;
 
     public Combination(int n, int k) {
         super("Combination");
