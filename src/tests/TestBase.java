@@ -73,19 +73,22 @@ public abstract class TestBase {
     }
 
     private void match(String value1, String value2) {
-        print(passPrint() + value1 + " and " + value2 + " match.");
+        print(failPrint(), value1, " and ", value2, " match.");
     }
 
     private void nonmatch(String value1, String value2) {
-        print(failPrint() + value1 + " and " + value2 + " don't match.");
+        //print(failPrint() + value1 + " and " + value2 + " don't match.");
+        print(failPrint(), value1, " and ", value2, " don't match.");
     }
 
     private void fail(String values, String expected, String calculated) {
-        print(failPrint() + values + " -> expected: " + expected + " ; calculated: " + calculated);
+        //print(failPrint() + values + " -> expected: " + expected + " ; calculated: " + calculated);
+        print(failPrint(), values, " -> expected: ", expected, " ; calculated: ", calculated);
     }
 
     private void pass(String values, String expected, String calculated) {
-        print(passPrint() + values + " -> expected: " + expected + " ; calculated: " + calculated);
+        //print(passPrint() + values + " -> expected: " + expected + " ; calculated: " + calculated);
+        print(passPrint(), values, " -> expected: ", expected, " ; calculated: ", calculated);
     }
 
     protected void print(String s) {
@@ -93,11 +96,32 @@ public abstract class TestBase {
     }
 
     private String failPrint() {
-        return "Test " + red("failed") + ": ";
+        return build("Test ", red("failed"), ": ");
+        //return "Test " + red("failed") + ": ";
     }
 
     private String passPrint() {
-        return "Test " + green("passed") + ": ";
+        return build("Test ", green("passed"), ": ");
+        //return "Test " + green("passed") + ": ";
+    }
+
+    /**
+     * Possible new way to print out our tests
+     */
+    private void print(String... s) {
+        StringBuilder b = new StringBuilder();
+        for(int i = 0; i < s.length; i++) {
+            b.append(s[i]);
+        }
+        print(b.toString());
+    }
+
+    private String build(String... s) {
+        StringBuilder b = new StringBuilder();
+        for(int i = 0; i < s.length; i++) {
+            b.append(s[i]);
+        }
+        return b.toString();
     }
 
     /**

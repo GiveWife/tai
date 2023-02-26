@@ -41,8 +41,8 @@ public class TaiTest {
     private TestBase[] getTests() {
         return new TestBase[] {
                 new EuclidTest(),
-                //new BezoutTest(),
-                //new VectorOperationTest()
+                new BezoutTest(),
+                new VectorOperationTest()
         };
     }
 

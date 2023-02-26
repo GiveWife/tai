@@ -60,7 +60,6 @@ public class BezoutIdentity extends Algorithm {
     private float c;
     private int[] solution;
     private final AlgorithmEuclid euclid;
-    private String solutionString = "unsolved";
     // ax + by = c
     // ax == c mod(b)
     public BezoutIdentity(int a, int b, int c) {
@@ -120,13 +119,6 @@ public class BezoutIdentity extends Algorithm {
     }
 
     /**
-     * Prints the solution of this object.
-     */
-    public void solution() {
-        print(Printer.WHITE_BOLD_BRIGHT + "Solution of " + Printer.BLUE_BOLD_BRIGHT + values() + Printer.WHITE_BOLD_BRIGHT + " is: " + Printer.GREEN_BOLD_BRIGHT + solutionString + Printer.ANSI_RESET);
-    }
-
-    /**
      * Solves Bezout Identity.
      *
      * Stores a solution vector
@@ -173,9 +165,9 @@ public class BezoutIdentity extends Algorithm {
             // Highest div is not 1, so we check if c is also dividable by our highest divider
             if(euclid.divide(euclid.getHighestDivider(), (int) c)) {
 
-                print("c  = " + c + " is divisable by " + euclid.getHighestDivider());
+                //print("c  = " + c + " is divisable by " + euclid.getHighestDivider());
                 AlgorithmEuclid divider = new AlgorithmEuclid(euclid.getHighestDivider(), (int) c);
-                print("c =" + c + " and " + euclid.getHighestDivider() + " can both be divided by: " + divider.getHighestDivider());
+                //print("c =" + c + " and " + euclid.getHighestDivider() + " can both be divided by: " + divider.getHighestDivider());
 
                 a = a / divider.getHighestDivider();
                 b = b / divider.getHighestDivider();
