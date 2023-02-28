@@ -130,7 +130,7 @@ public class BezoutIdentity extends Algorithm {
     public void run() {
 
         if(hasRun()) {
-            solution();
+            printsolution();
             return;
         }
 
@@ -162,6 +162,10 @@ public class BezoutIdentity extends Algorithm {
             // Set solution string, since sometimes multiple solutions are possible
             solutionString = printer.arrString(solution);
 
+            // Set solution itself:
+            setSolutionIndexes(new int[] {0});
+            setSolutionSet(new int[] {solution[0]});
+
         }
 
         // If highest divider of a and b is not 1, we have multiple solutions.
@@ -187,6 +191,9 @@ public class BezoutIdentity extends Algorithm {
                 int checkfit = euclid.fit(ob - solution[0], b);
                 int count = 0;
 
+                int[] solutionIndexes = new int[checkfit];
+                int[] solutionSet = new int[checkfit];
+
                 // Add our first solution first!
                 solutionString = printer.arrString(solution);
 
@@ -206,9 +213,16 @@ public class BezoutIdentity extends Algorithm {
                     // Add the solution to our string
                     solutionString += Color.greenb(printer.arrString(temp_sol));
 
+                    solutionSet[count] = temp_sol[0];
+                    solutionIndexes[count] = count;
+
                     count++;
 
                 }
+
+                // Solution lists:
+                setSolutionIndexes(solutionIndexes);
+                setSolutionSet(solutionSet);
 
             }
         }
@@ -305,6 +319,8 @@ public class BezoutIdentity extends Algorithm {
         solution = new int[] {x, y};
 
     }
+
+
 
     @Override
     public String values() {

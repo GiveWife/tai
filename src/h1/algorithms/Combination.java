@@ -28,7 +28,7 @@ public class Combination extends Algorithm {
         solution = factorial(n) / (factorial(k) * factorial(n-k));
         solutionString += Integer.toString(solution);
 
-        solution();
+        printsolution();
         toggleRun();
 
     }

@@ -92,6 +92,9 @@ public class AlgorithmEuclid extends Algorithm {
 
     }
 
+    /**
+     * Static access method to find greatest divider of a & b.
+     */
     public static int highestdiv(int a, int b) {
         AlgorithmEuclid euclid = new AlgorithmEuclid(a, b);
         return euclid.getHighestDivider();
