@@ -21,10 +21,23 @@ public class SudokuSolver {
         this.start = board;
         OperationTime time = new OperationTime();
         time.start();
-        this.solve(board);
+        this.solve(template());
         time.stop();
         solution();
         time.evaluation();
+    }
+
+    private int[][] template() {
+        return new int[][]{
+
+                {-1, 2, 3, -1, -1, -1},
+                {4, -1, 5, -1, -1, -1},
+                {-1, 5, -1, 2, -1, -1},
+                {-1, -1, 4, -1, 1, -1},
+                {-1, -1, -1, 4, -1, 1},
+                {-1, -1, -1, 6, 3, -1}
+
+        };
     }
 
     public void solution() {
