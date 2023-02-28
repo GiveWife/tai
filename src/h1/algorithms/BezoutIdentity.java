@@ -1,6 +1,7 @@
 package h1.algorithms;
 
 import util.Color;
+import util.NumberTheory;
 import util.Printer;
 import util.VectorOperation;
 
@@ -82,9 +83,10 @@ public class BezoutIdentity extends Algorithm {
      *
      * Algemeen geldt dat: d = (a, b) moet e kunnen delen.
      */
+    @Override
     public boolean isPossible() {
         int divider = euclid.getHighestDivider();
-        return euclid.isInteger(c / divider);
+        return NumberTheory.isInteger(c / divider);
     }
 
     /**

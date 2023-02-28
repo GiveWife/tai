@@ -14,6 +14,11 @@ public class CaesarAdditive extends Cipher {
     }
 
     @Override
+    public boolean isPossible() {
+        return true;
+    }
+
+    @Override
     public int[] encrypt(int[] numericTranslation) {
 
         for(int i = 0; i < numericTranslation.length; i++) {

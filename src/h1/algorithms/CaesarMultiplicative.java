@@ -13,6 +13,11 @@ public class CaesarMultiplicative extends Cipher {
         this.shift = shift;
     }
 
+    @Override
+    public boolean isPossible() {
+        return true;
+    }
+
     /**
      * Superclass handles run!
      */

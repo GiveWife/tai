@@ -11,8 +11,9 @@ public class PrimeTestTest extends TestBase {
     @Override
     public void test() {
 
-        PrimeTest t = new PrimeTest();
-        printArr(t.binary(13));
+        PrimeTest t = new PrimeTest(919, 2);
+
+        t.run();
 
 
     }

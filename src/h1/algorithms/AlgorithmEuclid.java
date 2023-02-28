@@ -1,5 +1,7 @@
 package h1.algorithms;
 
+import util.NumberTheory;
+
 public class AlgorithmEuclid extends Algorithm {
 
     private final int a1, b1;
@@ -10,29 +12,9 @@ public class AlgorithmEuclid extends Algorithm {
         this.b1 = b;
     }
 
-    /**
-     * Determines if the given integer is a prime number
-     */
-    public boolean isPrime(int i) {
-        if(i == 2 || i == 3 || i == 5 || i == 7) return true;
-        int possibleDivisions = 0;
-        for(int x = 1; x <= i; x++) {
-            if(isInteger((float) i/x)) {
-                //System.out.println("Division of " + i + " by " + x + " is an integer. ");
-                possibleDivisions++;
-            }
-        }
-        return possibleDivisions == 2;
-    }
-
-    /**
-     * Determines if the given float is an integer
-     */
-    public boolean isInteger(float i) {
-        // Example i = 5.06
-        // 5.06 - 5 ?= 0?
-        //System.out.println("  test " + i + " --> " + (i - (int) i));
-        return i - (int) i == 0f;
+    @Override
+    public boolean isPossible() {
+        return a1 > 0 && b1 > 0;
     }
 
     /**
@@ -59,7 +41,7 @@ public class AlgorithmEuclid extends Algorithm {
      * Returns a boolean value determining if a would divide b.
      */
     public boolean divide(int a, int b) {
-        return isInteger((float) b / a);
+        return NumberTheory.isInteger((float) b / a);
     }
 
     /**

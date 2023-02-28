@@ -12,6 +12,11 @@ public class Bellaso extends Cipher {
     }
 
     @Override
+    public boolean isPossible() {
+        return true;
+    }
+
+    @Override
     public int[] encrypt(int[] numericTranslation) {
 
         int[] encrypted = new int[numericTranslation.length];

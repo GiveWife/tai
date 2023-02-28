@@ -15,6 +15,11 @@ public class Combination extends Algorithm {
             print(printer.build(Printer.RED_BOLD_BRIGHT, "Invalid parameters for ", Printer.WHITE_BOLD_BRIGHT, "Combination ", values()));
     }
 
+    @Override
+    public boolean isPossible() {
+        return n < 0 || k < 0 || n < k;
+    }
+
     /**
      * Returns the solution of this combination
      */

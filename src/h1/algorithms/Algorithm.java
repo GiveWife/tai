@@ -35,6 +35,8 @@ public abstract class Algorithm {
         this.solutionSet = solutions;
     }
 
+    public abstract boolean isPossible();
+
     /**
      * Returns the solution set.
      */
