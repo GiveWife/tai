@@ -21,7 +21,11 @@ public class OperationTime {
         endTime = System.nanoTime();
         hasEndTime = true;
         isDone = true;
-        seconds = (endTime-startTime)*(0.000001);;
+        seconds = (endTime-startTime)*(0.000000001);;
+    }
+
+    public void evaluation() {
+        System.out.println("Operation took " + (endTime-startTime) + " nanoseconds or " + getSeconds() + " seconds");
     }
 
     public long getNano() {

@@ -1,5 +1,7 @@
 package util;
 
+import java.util.List;
+
 public class Printer {
 
     /**
@@ -70,13 +72,14 @@ public class Printer {
     }
 
     public String arrString(int[] arr) {
-        String s = "[";
+        StringBuilder b = new StringBuilder();
+        b.append("[");
         for(int i = 0; i < arr.length; i++) {
-            s += arr[i];
-            if(i < arr.length-1) s += ", ";
+            b.append(arr[i]);
+            if(i < arr.length-1) b.append(", ");
         }
-        s += "]";
-        return s;
+        b.append("]");
+        return b.toString();
     }
 
     public void debug(String s) {
@@ -99,6 +102,33 @@ public class Printer {
         for(int i = 0; i < s.length; i++) {
             b.append(s[i]);
         }
+        return b.toString();
+    }
+
+    public String doubleArrString(int[][] arr) {
+        StringBuilder b = new StringBuilder();
+        b.append("{");
+        for(int i = 0; i < arr.length; i++) {
+            b.append("[");
+            for(int j = 0; j < arr[i].length; j++) {
+                b.append(arr[i][j]);
+                if (j < arr[i].length - 1) b.append(", ");
+            }
+            if(i < arr.length-1) b.append("], ");
+            else b.append("]");
+        }
+        b.append("}");
+        return b.toString();
+    }
+
+    public String listString(List<?> list) {
+        StringBuilder b = new StringBuilder();
+        b.append("[");
+        for(int i = 0; i < list.size(); i++) {
+            b.append(list.get(i));
+            if(i < list.size()-1) b.append(", ");
+        }
+        b.append("]");
         return b.toString();
     }
 
