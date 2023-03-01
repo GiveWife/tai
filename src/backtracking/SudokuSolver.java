@@ -10,8 +10,6 @@ public class SudokuSolver {
 
     private final int size;
     private Printer printer = new Printer();
-    private int limit = 20;
-    private int counter = 0;
     private List<Board> solutions = new ArrayList<Board>();
     private int[][] start;
 
