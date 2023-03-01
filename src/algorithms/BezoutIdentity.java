@@ -1,8 +1,7 @@
-package h1.algorithms;
+package algorithms;
 
 import util.Color;
 import util.NumberTheory;
-import util.Printer;
 import util.VectorOperation;
 
 /**

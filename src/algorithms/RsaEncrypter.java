@@ -1,4 +1,7 @@
-package h1.algorithms;
+package algorithms;
+
+import algorithms.Algorithm;
+import algorithms.AlgorithmEuclid;
 
 public class RsaEncrypter extends Algorithm {
 

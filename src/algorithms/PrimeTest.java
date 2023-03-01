@@ -1,4 +1,6 @@
-package h1.algorithms;
+package algorithms;
+
+import algorithms.Algorithm;
 
 public class PrimeTest extends Algorithm {
 

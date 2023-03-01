@@ -1,5 +1,6 @@
-package h1.algorithms;
+package algorithms;
 
+import algorithms.Algorithm;
 import util.Translater;
 import util.Printer;
 

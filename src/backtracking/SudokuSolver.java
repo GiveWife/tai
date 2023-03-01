@@ -13,35 +13,28 @@ public class SudokuSolver {
     private List<Board> solutions = new ArrayList<Board>();
     private int[][] start;
 
+    public SudokuSolver(int[][] template) {
+        if(template.length < 0 || template[0].length != template.length) {
+            printer.print("Invalid template. Dimensions are invalid");
+            this.size = 3;
+            this.start = fill();
+        } else {
+            this.size = template.length;
+            this.start = template;
+        }
+    }
     public SudokuSolver(int size) {
         this.size = size;
         int[][] board = fill();
         this.start = board;
-        OperationTime time = new OperationTime();
-        time.start();
-        this.solve(template());
-        time.stop();
-        solution();
-        time.evaluation();
     }
 
-    private int[][] template() {
-        return new int[][]{
-
-                {-1, 2, 3, -1, -1, -1},
-                {4, -1, 5, -1, -1, -1},
-                {-1, 5, -1, 2, -1, -1},
-                {-1, -1, 4, -1, 1, -1},
-                {-1, -1, -1, 4, -1, 1},
-                {-1, -1, -1, 6, 3, -1}
-
-        };
-    }
-
+    /**
+     * Prints out the solution
+     */
     public void solution() {
         for(int i = 0; i < solutions.size(); i++) {
 
-            solutions.get(i).print();
             printer.print("\n");
 
         }

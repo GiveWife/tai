@@ -1,6 +1,6 @@
 package tests;
 
-import h1.algorithms.PrimeTest;
+import algorithms.PrimeTest;
 
 public class PrimeTestTest extends TestBase {
 

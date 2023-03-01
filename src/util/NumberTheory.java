@@ -1,6 +1,6 @@
 package util;
 
-import h1.algorithms.AlgorithmEuclid;
+import algorithms.AlgorithmEuclid;
 
 public class NumberTheory {
 

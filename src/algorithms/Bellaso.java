@@ -1,4 +1,4 @@
-package h1.algorithms;
+package algorithms;
 
 public class Bellaso extends Cipher {
 

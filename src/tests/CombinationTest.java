@@ -1,6 +1,6 @@
 package tests;
 
-import h1.algorithms.Combination;
+import algorithms.Combination;
 
 public class CombinationTest extends TestBase {
 
