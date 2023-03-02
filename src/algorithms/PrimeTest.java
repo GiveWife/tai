@@ -28,11 +28,8 @@ public class PrimeTest extends Algorithm {
         // a^(m-1) == 1 mod m -> dan priem. We kiezen voor a == 2
         XsBinary binary = new XsBinary(2, mod-1, mod);
 
-        // Set solution set
-        this.setSolutionSet(binary.solution());
-
-        // Set indexes for client classes
-        this.setSolutionIndexes(binary.getSolutionIndexes());
+        // Set single solution
+        this.setSolution(binary.getSolution());
 
         // Set solution string:
         this.setSolutionString(printer.build(Integer.toString(solution()[0])));

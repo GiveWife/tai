@@ -9,7 +9,7 @@ public class Translater extends Printer {
     }
 
     //public static final char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ".toCharArray();
-    public static final char[] alphabet = " abcdefghijklmnopqrstuvwxyz".toCharArray();
+    public static final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
     public int[] getNumeric(String toEncrypt) {
         int[] numeric = new int[toEncrypt.length()];

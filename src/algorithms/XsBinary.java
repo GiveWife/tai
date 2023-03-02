@@ -8,6 +8,18 @@ public class XsBinary extends Algorithm {
         this.modulo = modulo;
         this.number = number;
         this.power = power;
+
+        run();
+    }
+
+    public XsBinary(int number, int power, int modulo, String source) {
+        super("Xs Binary");
+        this.modulo = modulo;
+        this.number = number;
+        this.power = power;
+
+        System.out.println("    Trying: " + number + "^" + power + " % " + modulo);
+        run();
     }
 
     @Override
@@ -38,6 +50,7 @@ public class XsBinary extends Algorithm {
 
         setSolutionIndexes(new int[] {0});
         setSolutionSet(new int[] {we});
+        setSolution(we);
         setSolutionString(Integer.toString(we));
 
         toggleRun();

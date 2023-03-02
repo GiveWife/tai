@@ -18,6 +18,24 @@ public class AlgorithmEuclid extends Algorithm {
         this.b1 = 0;
     }
 
+    public int getOrder(int number, int mod) {
+        if(!NumberTheory.isCoprime(number, mod)) return -1;
+
+        int numcop = number;
+        int iterations = 0;
+
+        while(numcop != 1 && iterations <= mod+1) {
+
+            iterations++;
+            numcop *= number;
+            numcop %= mod;
+
+        }
+
+        return iterations+1;
+
+    }
+
     @Override
     public boolean isPossible() {
         return a1 > 0 && b1 > 0;
