@@ -32,9 +32,8 @@ public class Combination extends Algorithm {
     public void run() {
 
         solution = factorial(n) / (factorial(k) * factorial(n-k));
-        solutionString += Integer.toString(solution);
+        setSolutionString(getSolutionString() + Integer.toString(solution));
 
-        printsolution();
         toggleRun();
 
     }
@@ -54,7 +53,7 @@ public class Combination extends Algorithm {
 
     @Override
     public void uitleg() {
-        print("");
+        print("Combinatierekening");
     }
 
 }

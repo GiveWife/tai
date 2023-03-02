@@ -1,6 +1,5 @@
 package backtracking;
 
-import util.OperationTime;
 import util.Printer;
 
 import java.util.ArrayList;
@@ -9,12 +8,16 @@ import java.util.List;
 public class SudokuSolver {
 
     private final int size;
-    private Printer printer = new Printer();
-    private List<Board> solutions = new ArrayList<Board>();
-    private int[][] start;
+    private final Printer printer = new Printer();
+    private List<Board> solutions = new ArrayList<>();
+    private final int[][] start;
+    private boolean hasRun = false;
 
+    /**
+     * The template can be incorrect.
+     */
     public SudokuSolver(int[][] template) {
-        if(template.length < 0 || template[0].length != template.length) {
+        if(template.length <= 0 || template[0].length != template.length) {
             printer.print("Invalid template. Dimensions are invalid");
             this.size = 3;
             this.start = fill();
@@ -25,19 +28,44 @@ public class SudokuSolver {
     }
     public SudokuSolver(int size) {
         this.size = size;
-        int[][] board = fill();
-        this.start = board;
+        this.start = fill();
     }
+
 
     /**
      * Prints out the solution
      */
     public void solution() {
+        if(!hasRun) return;
         for(int i = 0; i < solutions.size(); i++) {
 
-            printer.print("\n");
+            // Print individual board
+            for(int j = 0; j < solutions.get(i).board.length; j++) {
+                printer.print(arrString(solutions.get(i).getBoard()));
+                printer.print("\n");
+            }
 
+            printer.print("\n");
         }
+    }
+
+    /**
+     * Highlights the preset values in the solution
+     */
+    private String arrString(int[][] print) {
+        if(print.length != start.length || print[0].length != start[0].length) return "Invalid arrays";
+        StringBuilder b = new StringBuilder();
+        for(int i = 0; i < print.length; i++) {
+            b.append("[");
+            for(int j = 0; j < print[i].length; j++) {
+                if(start[i][j] != -1) b.append(printer.build(Printer.WHITE_BOLD_BRIGHT, Integer.toString(print[i][j]), Printer.ANSI_RESET));
+                else b.append(print[i][j]);
+                if (j < print[i].length - 1) b.append(", ");
+            }
+            if(i < print.length-1) b.append("]\n");
+            else b.append("]");
+        }
+        return b.toString();
     }
 
     private boolean isCopy(int[][] lista, int[][] listb) {
@@ -49,6 +77,9 @@ public class SudokuSolver {
         return true;
     }
 
+    /**
+     * Creates a new board using {@link SudokuSolver#size}.
+     */
     private int[][] fill() {
         int[][] board = new int[size][size];
         for(int i = 0; i < board.length; i++) {
@@ -59,6 +90,9 @@ public class SudokuSolver {
         return board;
     }
 
+    /**
+     * Returns a list of copies of the given board. It will always return {@link SudokuSolver#size} copies.
+     */
     public int[][][] getCopies(int[][] original) {
         int[][][] copies = new int[size][size][size];
 
@@ -76,6 +110,9 @@ public class SudokuSolver {
         return copies;
     }
 
+    /**
+     * Examines the board and returns if we should continue expanding this board
+     */
     public boolean examine(int[][] board) {
 
         //printer.print("Checking board: " + printer.doubleArrString(board));
@@ -129,6 +166,10 @@ public class SudokuSolver {
         return true;
     }
 
+    /**
+     * Expands the given board with all possible values. Then returns a list of those boards.
+     * Uses {@link SudokuSolver#getCopies(int[][])}
+     */
     public int[][][] expand(int[][] original) {
 
         int[][][] copies = getCopies(original);
@@ -161,14 +202,14 @@ public class SudokuSolver {
 
     }
 
-    public void solve(int[][] board) {
+    /**
+     * Solve will get a list of expansions from {@link SudokuSolver#expand(int[][])}. Then it will
+     * examine each element of the list via {@link SudokuSolver#expand(int[][])}. The board that
+     * should expand further will again be expanded and examined
+     */
+    private void solve(int[][] board) {
 
         if(!shouldExpand(board) && examine(board)) {
-            for(int i = 0; i < solutions.size(); i++) {
-                if(isCopy(solutions.get(i).getBoard(), board)) printer.print("Equivalent solutions!");
-            }
-            printer.print("Solution found: ", printer.doubleArrString(board));
-            //printer.print(Printer.GREEN_BOLD_BRIGHT, "Solution: ", Printer.WHITE_BOLD_BRIGHT, printer.doubleArrString(board), Printer.ANSI_RESET);
             solutions.add(new Board(board));
         }
 
@@ -189,10 +230,18 @@ public class SudokuSolver {
 
     }
 
-    private void result(int[][] board) {
-        printer.print("Solution: " + Printer.WHITE_BOLD_BRIGHT + printer.doubleArrString(board));
+    /**
+     * Starts the algorithm to solve this puzzle
+     */
+    public void solve() {
+        solve(start);
+        hasRun = true;
     }
 
+    /**
+     * In {@link SudokuSolver#solve(int[][])}, we will also check if the board is full & correct.
+     * If both are okay, we will return false in this method.
+     */
     private boolean shouldExpand(int[][] board) {
 
         for(int i = 0; i < board.length; i++) {
@@ -210,6 +259,10 @@ public class SudokuSolver {
 
     }
 
+    /**
+     * Helper class that holds an int[][] object. The class {@link SudokuSolver} holds a list of
+     * Board objects as solutions.
+     */
     public static class Board {
 
         private final int[][] board;
@@ -218,6 +271,7 @@ public class SudokuSolver {
             this.board = board;
         }
 
+        @Deprecated
         public void print() {
             Printer p = new Printer();
             for(int i = 0; i < board.length; i++) {

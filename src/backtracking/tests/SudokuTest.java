@@ -37,5 +37,7 @@ public class SudokuTest extends TestBase {
 
         testValue(doubleArrString(board), false, s.examine(board));
 
+        s = new SudokuSolver(new int[][]{{1,2,3},{-1,-1,-1},{}});
+
     }
 }

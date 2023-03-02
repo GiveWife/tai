@@ -12,6 +12,12 @@ public class AlgorithmEuclid extends Algorithm {
         this.b1 = b;
     }
 
+    public AlgorithmEuclid() {
+        super("Euclid");
+        this.a1 = 0;
+        this.b1 = 0;
+    }
+
     @Override
     public boolean isPossible() {
         return a1 > 0 && b1 > 0;
@@ -109,9 +115,7 @@ public class AlgorithmEuclid extends Algorithm {
 
     @Override
     public void run() {
-        if(hasRun()) return;
-        getHighestDivider();
-        this.toggleRun();
+        return;
     }
 
     @Override

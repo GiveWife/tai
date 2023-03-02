@@ -23,7 +23,7 @@ public class NumberTheory {
 
     public static boolean isCoprime(int a, int b) {
 
-        AlgorithmEuclid e = new AlgorithmEuclid(a, b);
+        AlgorithmEuclid e = new AlgorithmEuclid();
 
         return e.getHighestDivider() == 1;
     }

@@ -115,12 +115,6 @@ public class BezoutIdentity extends Algorithm {
         return new int[] {solution[0]};
     }
 
-    /**
-     * Returns the solution string for this object.
-     */
-    private String getSolutionString() {
-        return solutionString;
-    }
 
     /**
      * Solves Bezout Identity.
@@ -161,7 +155,7 @@ public class BezoutIdentity extends Algorithm {
             calculate();
 
             // Set solution string, since sometimes multiple solutions are possible
-            solutionString = printer.arrString(solution);
+            setSolutionString(printer.arrString(solution));
 
             // Set solution itself:
             setSolutionIndexes(new int[] {0});
@@ -196,7 +190,7 @@ public class BezoutIdentity extends Algorithm {
                 int[] solutionSet = new int[checkfit];
 
                 // Add our first solution first!
-                solutionString = printer.arrString(solution);
+                setSolutionString(printer.arrString(solution));
 
                 // Loop over how many times we can find a solution.
                 while(count < checkfit) {
@@ -209,10 +203,10 @@ public class BezoutIdentity extends Algorithm {
 
                     // If ob = 6, x + b == 6, then our solution is actually 0.
                     if(temp_sol[0] % ob == 0) break;
-                    solutionString += Color.white(" ,");
+                    setSolutionString(getSolutionString() + Color.white(" ,"));
 
                     // Add the solution to our string
-                    solutionString += Color.greenb(printer.arrString(temp_sol));
+                    setSolutionString(getSolutionString() + Color.greenb(printer.arrString(temp_sol)));
 
                     solutionSet[count] = temp_sol[0];
                     solutionIndexes[count] = count;
