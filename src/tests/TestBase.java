@@ -27,7 +27,11 @@ public abstract class TestBase extends Printer {
     /**
      * Runs all tests for the implementation
      */
-    public abstract void test();
+    public void test() {
+        print("Tests for ", getName());
+
+        evaluate();
+    }
 
     /**
      * Tests if values match & prints message according to result
