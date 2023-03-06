@@ -11,8 +11,9 @@ public class RsaEncrypter extends Cipher {
 
     public RsaEncrypter(int p, int q, int e, String message) {
         super(message, "Rsa");
-        if(!NumberTheory.isPrime(p) || !NumberTheory.isPrime(q))
-            print("Incorrect parameters p & q for this object");
+        if(!NumberTheory.isPrime(p) || !NumberTheory.isPrime(q)) {
+            print("Incorrect parameters p & q to begin RSA encryption. Numbers must be primes.");
+        }
         this.p = p; // prime 1
         this.q = q; // prime 2
         this.e = e; // public key
@@ -25,7 +26,7 @@ public class RsaEncrypter extends Cipher {
     @Override
     public boolean isPossible() {
         AlgorithmEuclid e = new AlgorithmEuclid(p, q);
-        return true;
+        return e.getHighestDivider() == 1;
     }
 
     /**
@@ -69,7 +70,7 @@ public class RsaEncrypter extends Cipher {
 
         }
 
-        printer.print("Encrypted: " + printer.arrString(encrypted));
+        //printer.print("Encrypted: " + printer.arrString(encrypted));
         return encrypted;
 
     }
@@ -84,14 +85,12 @@ public class RsaEncrypter extends Cipher {
             // We find our shift via position
             XsBinary xsBinary = new XsBinary(numericEncryption[i], d, p*q);
             xsBinary.run();
-            if(i == 2) print("DECRYPT Trying " + numericEncryption[i] + "^" + d + " mod " + (p*q) + " = " + (xsBinary.getSolution() % translater.alphabet.length) + " ( binary: " + xsBinary.getSolution() + ")");
+            //if(i == 2) print("DECRYPT Trying " + numericEncryption[i] + "^" + d + " mod " + (p*q) + " = " + (xsBinary.getSolution() % translater.alphabet.length) + " ( binary: " + xsBinary.getSolution() + ")");
 
             decrypted[i] = (xsBinary.getSolution()) % translater.alphabet.length;
 
 
         }
-
-        printer.print("Decrypted: " + printer.arrString(decrypted));
 
         return decrypted;
     }

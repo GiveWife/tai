@@ -29,7 +29,7 @@ public abstract class Cipher extends Algorithm {
             }
 
         // Printer
-        printer = new Printer("Caesar Additive");
+        printer = new Printer(name);
         this.message = message;
     }
 
@@ -47,6 +47,10 @@ public abstract class Cipher extends Algorithm {
 
     @Override
     public void run() {
+        if(!isPossible()) {
+            System.out.println("Invalid parameters detected. Encryption/Decryption is not possible");
+            return;
+        }
         this.numeric_start = translater.getNumeric(message);
         this.numeric_encrypted = encrypt(numeric_start);
         this.decrypted_message = decrypt(numeric_encrypted);
