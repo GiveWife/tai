@@ -2,7 +2,8 @@ package algorithms;
 
 public class XsBinary extends Algorithm {
 
-    private final int modulo, number, power;
+    private final int modulo, power;
+    private final int number;
     public XsBinary(int number, int power, int modulo) {
         super("Xs Binary");
         this.modulo = modulo;
